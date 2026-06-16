@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "projectType": "da"
+  },
+  "templates": [
+    {
+      "name": "homepage",
+      "urls": [
+        "https://governor.arkansas.gov/"
+      ],
+      "representativeUrl": "https://governor.arkansas.gov/",
+      "coverageGaps": [],
+      "description": "Arkansas Governor homepage: header/nav, hero with video background and tagline, quick-link tiles, governor bio section, latest press releases grid, and footer.",
+      "blocks": [
+        {
+          "name": "hero",
+          "instances": [
+            ".elementor-element-1766795"
+          ]
+        },
+        {
+          "name": "cards",
+          "instances": [
+            ".elementor-element-2a743ae",
+            ".elementor-element-3513c3b"
+          ]
+        },
+        {
+          "name": "columns",
+          "instances": [
+            ".elementor-element-1919351"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "hero",
+          "name": "Hero",
+          "selector": ".elementor-element-1766795",
+          "style": null,
+          "blocks": [
+            "hero"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "quick-link-tiles",
+          "name": "Quick Link Tiles",
+          "selector": ".elementor-element-2a743ae",
+          "style": null,
+          "blocks": [
+            "cards"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "governor-bio",
+          "name": "Governor Bio",
+          "selector": ".elementor-element-1919351",
+          "style": null,
+          "blocks": [
+            "columns"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "latest-news",
+          "name": "Latest News",
+          "selector": ".elementor-element-190566a",
+          "style": "dark",
+          "blocks": [
+            "cards"
+          ],
+          "defaultContent": [
+            ".elementor-element-190566a .elementor-widget-divider"
+          ]
+        }
+      ]
+    }
+  ]
+}

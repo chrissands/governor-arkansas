@@ -49,6 +49,185 @@ header.usa-header .header.block {
 }
 
 /*
+ * ============================================================
+ * Arkansas Governor theme overrides (source: governor.arkansas.gov)
+ * Green utility/alert bar, navy nav + dropdown panels, white logo.
+ * ============================================================
+ */
+
+/* --- Top utility/alert bar (Arkansas Food Assistance Information) --- */
+.usa-header__utility-bar {
+  background-color: #146e48; /* AR green */
+  text-align: center;
+}
+
+header.usa-header .usa-header__utility-bar .usa-header__utility-link {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #fff;
+  font-family: "Nunito Sans", system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+
+header.usa-header .usa-header__utility-bar .usa-header__utility-link:hover,
+header.usa-header .usa-header__utility-bar .usa-header__utility-link:focus {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* --- Header bar: navy band (mobile default; desktop overlays hero) --- */
+header.usa-header.usa-header--basic {
+  background-color: #113b60; /* AR navy */
+}
+
+header.usa-header .usa-nav-container {
+  max-width: 80rem;
+}
+
+/* White logo sits on the navy bar */
+@media (min-width: 64em) {
+  .usa-logo__img {
+    max-width: 4.5rem;
+  }
+
+  /* Desktop: navbar (logo + nav) is transparent and OVERLAYS the hero,
+     matching the source where the header floats over the banner image.
+     Only the green utility bar stays in normal flow. */
+  header.usa-header.usa-header--basic {
+    position: relative;
+    z-index: 999;
+    background-color: transparent;
+  }
+
+  header.usa-header.usa-header--basic .usa-nav-container {
+    position: absolute;
+    top: 100%; /* directly below the green utility bar */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    background-color: transparent;
+  }
+
+  /* The utility bar keeps its own height in flow; the navbar floats,
+     so the header element itself only reserves the green bar height. */
+}
+
+/* --- Primary nav links: white, bold, Nunito Sans --- */
+.usa-nav__primary {
+  font-family: "Nunito Sans", system-ui, sans-serif;
+}
+
+@media (min-width: 64em) {
+  .usa-nav__primary > .usa-nav__primary-item > a,
+  .usa-nav__primary > .usa-nav__primary-item > button {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    background-color: transparent;
+  }
+
+  .usa-nav__primary > .usa-nav__primary-item > a:hover,
+  .usa-nav__primary > .usa-nav__primary-item > button:hover {
+    color: #fff;
+    background-color: rgb(255 255 255 / 12%);
+  }
+
+  /* Dropdown indicator chevron uses white on the navy bar */
+  .usa-nav__primary button[aria-expanded] span::after {
+    background-color: #fff;
+  }
+
+  /* --- Dropdown submenu panels: navy with white links --- */
+  .usa-nav__submenu {
+    background-color: #0d2f4d; /* slightly darker navy panel */
+  }
+
+  .usa-nav__submenu .usa-nav__submenu-item a {
+    color: #fff;
+  }
+
+  .usa-nav__submenu .usa-nav__submenu-item a:hover {
+    color: #fff;
+    background-color: rgb(255 255 255 / 12%);
+  }
+
+  /* CTA-style last item (Scheduling Request): solid green button */
+  .usa-nav__primary > .usa-nav__primary-item:last-child {
+    display: flex;
+    align-items: center;
+    margin-left: 0.75rem;
+  }
+
+  .usa-nav__primary > .usa-nav__primary-item:last-child > a {
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    background-color: #146e48;
+    color: #fff;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  .usa-nav__primary > .usa-nav__primary-item:last-child > a:hover {
+    background-color: #0f5436;
+    color: #fff;
+  }
+}
+
+/* Mobile menu button + close icon on the navy bar */
+.usa-menu-btn {
+  background-color: #146e48;
+}
+
+.usa-menu-btn:hover {
+  background-color: #0f5436;
+}
+
+/* Mobile open nav uses navy background to match */
+@media (max-width: 63.99em) {
+  header.usa-header .usa-nav {
+    background-color: #113b60;
+  }
+
+  /* Top-level mobile accordion buttons + links: white on navy */
+  header.usa-header .usa-nav__primary > .usa-nav__primary-item > a,
+  header.usa-header .usa-nav__primary button.usa-accordion__button.usa-nav__link {
+    color: #fff;
+    background-color: transparent;
+  }
+
+  header.usa-header .usa-nav__primary > .usa-nav__primary-item > a:hover,
+  header.usa-header .usa-nav__primary button.usa-accordion__button.usa-nav__link:hover {
+    color: #fff;
+    background-color: rgb(255 255 255 / 12%);
+  }
+
+  /* Expanded accordion button gets a slightly lighter navy to read as active */
+  header.usa-header .usa-nav__primary button.usa-accordion__button[aria-expanded="true"] {
+    background-color: #0d2f4d;
+  }
+
+  header.usa-header .usa-nav__submenu {
+    background-color: #0d2f4d;
+  }
+
+  header.usa-header .usa-nav__submenu .usa-nav__submenu-item a {
+    color: #fff;
+  }
+
+  /* Borders between mobile items for separation on navy */
+  header.usa-header .usa-nav__primary > .usa-nav__primary-item {
+    border-top: 1px solid rgb(255 255 255 / 15%);
+  }
+}
+
+/*
 * * * * * ==============================
 * * * * * ==============================
 * * * * * ==============================

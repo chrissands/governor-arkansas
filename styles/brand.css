@@ -1,0 +1,41 @@
+/* Arkansas Governor brand tokens (source: governor.arkansas.gov) */
+
+@font-face {
+  font-family: "Craw Clarendon";
+  src: url("/fonts/craw-clarendon.woff") format("woff");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Fonts */
+  --heading-font-family: "Craw Clarendon", georgia, serif;
+  --body-font-family: "Nunito Sans", system-ui, sans-serif;
+
+  /* Brand palette */
+  --ar-navy: #113b60;
+  --ar-navy-dark: #0e2b45;
+  --ar-navy-deep: #0b2238;
+  --ar-green: #146e48;
+  --ar-green-dark: #0f5436;
+
+  /* Semantic colors */
+  --background-color: #fff;
+  --text-color: #113b60;
+  --link-color: #146e48;
+  --link-hover-color: #0f5436;
+
+  /* Spacing */
+  --section-padding: 4rem;
+  --content-max-width: 80rem;
+  --nav-height: 56px;
+
+  /* Heading sizes */
+  --heading-size-xxl: 56px;
+  --heading-size-xl: 40px;
+  --heading-size-l: 30px;
+  --heading-size-m: 24px;
+  --heading-size-s: 20px;
+  --heading-size-xs: 16px;
+}

@@ -1,3 +1,211 @@
+/* ============================================================
+   CUSTOM OVERRIDES — governor.arkansas.gov hero
+   (protected from build regeneration; keep at TOP of file)
+   Source: .elementor-element-1766795 @ 1440px
+   Decorated DOM:
+     div.hero.usa-hero
+       div.grid-container
+         div.usa-hero__callout
+           h1.usa-hero__heading
+           p   (blockquote text: quote + author, merged)
+   ============================================================ */
+
+/* Full-bleed: cancel EDS section max-width wrapper */
+main .section .hero-wrapper {
+  max-width: 100% !important;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+main .hero.usa-hero {
+  position: relative;
+  width: 100%;
+  min-height: 520px; /* mobile */
+  padding: 0;
+  background-image: url("/content/images/hero-whitaker-point.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 45%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+/* Hero must not clip the bottom wedge; allow the following tiles to overlap up.
+   The hero and quick-link tiles share one EDS section; pull the cards wrapper
+   up so the photo tiles tuck under the hero's angled white edge (source uses
+   margin-top: -440px at desktop). */
+main .section .hero-wrapper + .cards-wrapper {
+  position: relative;
+  z-index: 1;
+  margin-top: -30px !important;
+}
+
+@media (width >= 900px) {
+  main .section .hero-wrapper + .cards-wrapper {
+    margin-top: -120px !important;
+  }
+}
+
+/* Decorative background video — full-cover layer behind overlay + content.
+   The hero background-image shows through until the video loads / on
+   reduced-motion (video omitted by hero.js). */
+main .hero.usa-hero .usa-hero__video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  pointer-events: none;
+}
+
+/* Dark gradient overlay for text legibility (above video, below content) */
+main .hero.usa-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(14, 43, 69, 0.55) 0%,
+    rgba(14, 43, 69, 0.25) 35%,
+    rgba(14, 43, 69, 0.35) 100%
+  );
+}
+
+/* White "tilt" shape divider at the hero's bottom edge — reproduces the
+   source's Elementor divider: viewBox 0 0 1000 100, path M0,6V0h1000v100L0,6z.
+   Vertical-only flip (matrix 1,0,0,-1,0,100) so it sits as a bottom divider
+   with the diagonal sloping the correct way (deeper on the right).
+   preserveAspectRatio=none so it stretches to full width. White fill. */
+main .hero.usa-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px;
+  z-index: 2;
+  height: 90px;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100' preserveAspectRatio='none'%3E%3Cpath d='M0,6V0h1000v100L0,6z' transform='matrix(1,0,0,-1,0,100)' fill='%23ffffff'/%3E%3C/svg%3E");
+}
+
+@media (width >= 900px) {
+  main .hero.usa-hero::after {
+    /* Depth kept close to the tile overlap so the deep (right) side of the
+       wedge tucks under the tiles instead of rising above them — matching the
+       source, where the white stays below the tile tops. Thin sliver on left,
+       deeper on right. */
+    height: 110px;
+  }
+}
+
+/* Inner content area — content above video, overlay, and bottom wedge */
+main .hero.usa-hero .grid-container {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 24px 20px 28px;
+  box-sizing: border-box;
+}
+
+/* Callout becomes the full-area layout container:
+   H1 pinned upper-left, quote box pushed to lower-right */
+main .hero.usa-hero .usa-hero__callout {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 24px;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+}
+
+/* H1 "Empowering Arkansans" */
+main .hero.usa-hero h1.usa-hero__heading {
+  align-self: flex-start;
+  margin: 0;
+  max-width: 100%;
+  color: #fff;
+  font-family: var(--heading-font-family);
+  font-weight: 900;
+  font-size: 34px; /* mobile */
+  line-height: 1.1;
+  text-align: left;
+  text-shadow: 0 2px 6px rgba(14, 43, 69, 0.45);
+}
+
+/* Quote box (semi-transparent navy) — right side, left-aligned text */
+main .hero.usa-hero .usa-hero__callout > p {
+  margin: auto 0 0;             /* push to bottom on mobile */
+  align-self: flex-end;          /* push to right */
+  width: 100%;
+  max-width: 100%;
+  padding: 22px 24px;
+  background-color: rgba(6, 73, 133, 0.46);
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #fff;
+  font-family: var(--body-font-family);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.45;
+  text-align: left;
+}
+
+@media (width >= 900px) {
+  main .hero.usa-hero {
+    min-height: 760px; /* tall desktop hero matching source proportions */
+    background-position: 50% 50%;
+  }
+
+  /* Match the nav-container bounds (max-width 1280, centered, 32px padding)
+     so the H1 lines up with the logo and the quote lines up with the CTA. */
+  main .hero.usa-hero .grid-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  main .hero.usa-hero .usa-hero__callout {
+    padding: 180px 0 50px; /* push H1 down from header, room for cards below */
+    gap: 50px;
+  }
+
+  main .hero.usa-hero h1.usa-hero__heading {
+    font-size: 56px;
+    line-height: 1.05;
+  }
+
+  main .hero.usa-hero .usa-hero__callout > p {
+    width: 646px;
+    max-width: 50%;
+    margin: 40px 0 auto; /* sit below H1, leave open space toward bottom */
+    padding: 30px;
+    font-size: 19.2px;
+    line-height: 24px;
+  }
+}
+
+/* ============================================================
+   END CUSTOM OVERRIDES — original USWDS compiled CSS below
+   ============================================================ */
+
 /*
 * * * * * ==============================
 * * * * * ==============================

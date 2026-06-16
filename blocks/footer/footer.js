@@ -466,6 +466,206 @@ function decorateSlimFooter(footer, sections) {
 }
 
 /**
+ * Decorates a "columns" footer variant.
+ * Fragment sections (in order):
+ *   0: nav columns      — <ul> of <li><p>Heading</p><ul>links</ul></li>
+ *   1: brand            — logo image link + optional CTA link
+ *   2: legal links      — <ul> of utility/legal links
+ *   3: flag status      — <h3> + <ul> of text status items
+ *   4: copyright        — <p> with copyright text + attribution link
+ * Renders an accessible big-style column nav plus a bottom utility bar.
+ * @param {Element} footer The footer element
+ * @param {NodeList} sections The content sections
+ */
+function decorateColumnsFooter(footer, sections) {
+  const [navSection, brandSection, legalSection, flagSection, copyrightSection] = sections;
+
+  // --- Primary section: link columns + brand ---
+  const primarySection = document.createElement('div');
+  primarySection.className = 'usa-footer__primary-section';
+
+  const primaryContainer = document.createElement('div');
+  primaryContainer.className = 'grid-container';
+
+  const primaryRow = document.createElement('div');
+  primaryRow.className = 'grid-row grid-gap';
+
+  // Navigation columns
+  const navCol = document.createElement('div');
+  navCol.className = 'tablet:grid-col-9';
+
+  const nav = document.createElement('nav');
+  nav.className = 'usa-footer__nav';
+  nav.setAttribute('aria-label', 'Footer navigation');
+
+  const navRow = document.createElement('div');
+  navRow.className = 'grid-row grid-gap-4';
+
+  if (navSection) {
+    // The fragment's top-level <ul> is wrapped by decorateSections in a
+    // default-content-wrapper, so match the first <ul> and its direct <li>s.
+    const topicsList = navSection.querySelector('ul');
+    const topics = topicsList ? topicsList.querySelectorAll(':scope > li') : [];
+    topics.forEach((topic) => {
+      const topicCol = document.createElement('div');
+      topicCol.className = 'mobile-lg:grid-col-4 desktop:grid-col-4';
+
+      const section = document.createElement('section');
+      section.className = 'usa-footer__primary-content';
+
+      const heading = topic.querySelector(':scope > p, :scope > strong');
+      if (heading) {
+        const h4 = document.createElement('h4');
+        h4.className = 'usa-footer__primary-link';
+        h4.textContent = heading.textContent;
+        section.appendChild(h4);
+      }
+
+      const linksList = topic.querySelector('ul');
+      if (linksList) {
+        const ul = document.createElement('ul');
+        ul.className = 'usa-list usa-list--unstyled';
+        linksList.querySelectorAll('a').forEach((link) => {
+          const li = document.createElement('li');
+          li.className = 'usa-footer__secondary-link';
+          const a = document.createElement('a');
+          a.href = link.href;
+          a.textContent = link.textContent;
+          li.appendChild(a);
+          ul.appendChild(li);
+        });
+        section.appendChild(ul);
+      }
+
+      topicCol.appendChild(section);
+      navRow.appendChild(topicCol);
+    });
+  }
+
+  nav.appendChild(navRow);
+  navCol.appendChild(nav);
+  primaryRow.appendChild(navCol);
+
+  // Brand column (logo + CTA)
+  if (brandSection) {
+    const brandCol = document.createElement('div');
+    brandCol.className = 'tablet:grid-col-3 usa-footer__brand-col';
+
+    const img = brandSection.querySelector('img');
+    if (img) {
+      const imgLink = document.createElement('a');
+      const srcLink = img.closest('a');
+      imgLink.href = srcLink ? srcLink.getAttribute('href') : '/';
+      const logoImg = document.createElement('img');
+      logoImg.className = 'usa-footer__logo-img';
+      logoImg.src = img.src;
+      logoImg.alt = img.alt || '';
+      imgLink.appendChild(logoImg);
+      brandCol.appendChild(imgLink);
+    }
+
+    // CTA link (last anchor that is not the logo link)
+    const links = Array.from(brandSection.querySelectorAll('a')).filter((a) => !a.querySelector('img'));
+    if (links.length) {
+      const cta = document.createElement('a');
+      cta.className = 'usa-footer__brand-cta';
+      cta.href = links[links.length - 1].href;
+      cta.textContent = links[links.length - 1].textContent;
+      brandCol.appendChild(cta);
+    }
+
+    primaryRow.appendChild(brandCol);
+  }
+
+  primaryContainer.appendChild(primaryRow);
+  primarySection.appendChild(primaryContainer);
+  footer.appendChild(primarySection);
+
+  // --- Secondary (bottom) bar: legal links + flag status + copyright ---
+  const secondary = document.createElement('div');
+  secondary.className = 'usa-footer__secondary-section';
+
+  const secondaryContainer = document.createElement('div');
+  secondaryContainer.className = 'grid-container';
+
+  // Legal/utility links
+  if (legalSection) {
+    const legalNav = document.createElement('nav');
+    legalNav.className = 'usa-footer__utility-nav';
+    legalNav.setAttribute('aria-label', 'Legal and policy links');
+    const ul = document.createElement('ul');
+    ul.className = 'usa-footer__utility-links';
+    legalSection.querySelectorAll('a').forEach((link) => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = link.href;
+      a.textContent = link.textContent;
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+    legalNav.appendChild(ul);
+    secondaryContainer.appendChild(legalNav);
+  }
+
+  // Flag status — connected AR/US pill badge (matches source). The full text
+  // ("Arkansas flag: Full staff" etc.) is preserved as an accessible label.
+  if (flagSection) {
+    const flagDiv = document.createElement('div');
+    flagDiv.className = 'usa-footer__flag-status';
+    const heading = flagSection.querySelector('h2, h3, h4, p, strong');
+    if (heading) {
+      const h3 = document.createElement('h3');
+      h3.className = 'usa-footer__flag-heading';
+      h3.textContent = heading.textContent;
+      flagDiv.appendChild(h3);
+    }
+    const items = flagSection.querySelectorAll('li');
+    if (items.length) {
+      const pill = document.createElement('ul');
+      pill.className = 'usa-footer__flag-pill';
+      items.forEach((item) => {
+        const full = item.textContent.trim(); // e.g. "Arkansas flag: Full staff"
+        // Short label: first word's initials (Arkansas -> AR, U.S. -> US)
+        const isUS = /^u\.?s\.?|united states/i.test(full);
+        const label = isUS ? 'US' : 'AR';
+        // Status word (e.g. "Full" / "Half")
+        const statusMatch = full.match(/:\s*([A-Za-z]+)/);
+        const status = statusMatch ? statusMatch[1].toLowerCase() : '';
+        const li = document.createElement('li');
+        li.className = `usa-footer__flag-segment usa-footer__flag-segment--${isUS ? 'us' : 'ar'}`;
+        li.setAttribute('aria-label', full);
+        li.title = full;
+        const labelSpan = document.createElement('span');
+        labelSpan.className = 'usa-footer__flag-label';
+        labelSpan.textContent = label;
+        const statusSpan = document.createElement('span');
+        statusSpan.className = 'usa-footer__flag-state';
+        statusSpan.textContent = status;
+        li.appendChild(labelSpan);
+        li.appendChild(statusSpan);
+        pill.appendChild(li);
+      });
+      flagDiv.appendChild(pill);
+    }
+    secondaryContainer.appendChild(flagDiv);
+  }
+
+  // Copyright
+  if (copyrightSection) {
+    const copy = document.createElement('div');
+    copy.className = 'usa-footer__copyright';
+    const p = copyrightSection.querySelector('p') || copyrightSection;
+    const copyP = document.createElement('p');
+    copyP.innerHTML = p.innerHTML;
+    copy.appendChild(copyP);
+    secondaryContainer.appendChild(copy);
+  }
+
+  secondary.appendChild(secondaryContainer);
+  footer.appendChild(secondary);
+}
+
+/**
  * Decorates the footer content into USWDS structure
  * @param {Element} footer The footer block element
  * @param {Element} fragment The loaded fragment
@@ -473,8 +673,8 @@ function decorateSlimFooter(footer, sections) {
 async function decorateFooter(footer, fragment) {
   const sections = fragment.querySelectorAll(':scope > div');
 
-  // Apply footer variant from metadata (big, medium, slim - default to medium)
-  const variant = getMetadata('footer') || getMetadata('footer-variant') || 'medium';
+  // Apply footer variant from metadata (big, medium, slim, columns - default columns)
+  const variant = getMetadata('footer') || getMetadata('footer-variant') || 'columns';
 
   // Use the parent <footer> element and add USWDS classes
   const usaFooter = footer.parentElement;
@@ -483,7 +683,13 @@ async function decorateFooter(footer, fragment) {
   // Clear the block content
   footer.textContent = '';
 
-  // Build return to top link (all variants)
+  if (variant === 'columns') {
+    // Columns footer: link columns + brand + legal/flag/copyright bar
+    decorateColumnsFooter(footer, sections);
+    return;
+  }
+
+  // Build return to top link (other variants)
   const returnToTop = document.createElement('div');
   returnToTop.className = 'grid-container usa-footer__return-to-top';
   const topLink = document.createElement('a');
@@ -510,7 +716,7 @@ async function decorateFooter(footer, fragment) {
  */
 export default async function decorate(block) {
   // Load the footer content from fragment
-  const footerPath = getMetadata('footer-nav') || '/nav/footer';
+  const footerPath = getMetadata('footer-nav') || '/content/nav/footer';
   const fragment = await loadFragment(footerPath);
 
   // Decorate the fragment into USWDS structure

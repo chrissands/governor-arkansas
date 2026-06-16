@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "url": "https://governor.arkansas.gov/",
+  "path": "index",
+  "timestamp": "2026-06-16T16:27:11.294Z",
+  "title": "Home Page - Arkansas Governor - Sarah Huckabee Sanders",
+  "template": "homepage",
+  "blocks": [
+    "hero",
+    "cards",
+    "cards",
+    "columns"
+  ]
+}

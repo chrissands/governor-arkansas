@@ -84,4 +84,27 @@ export default function decorate(block) {
     picture.classList.add('usa-hero__image');
     block.insertBefore(picture, block.firstChild);
   }
+
+  // Decorative background video (matches source). The background image above
+  // remains as the fallback shown until the video loads / on reduced-motion.
+  const videoSrc = block.dataset.bgVideo || '/videos/ar-gov-hero.mp4';
+  const prefersReducedMotion = window.matchMedia
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (videoSrc && !prefersReducedMotion) {
+    const video = document.createElement('video');
+    video.className = 'usa-hero__video';
+    video.autoplay = true;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('aria-hidden', 'true');
+    video.setAttribute('tabindex', '-1');
+    const source = document.createElement('source');
+    source.src = `${videoSrc}#t=1`;
+    source.type = 'video/mp4';
+    video.appendChild(source);
+    block.insertBefore(video, block.firstChild);
+  }
 }

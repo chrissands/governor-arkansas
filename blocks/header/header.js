@@ -221,6 +221,23 @@ async function decorateNav(header, fragment) {
     secondaryNav.appendChild(secondaryLinks);
   }
 
+  // Render a top utility/alert bar from the tools section (state-site alert).
+  // The tools section holds a single prominent link (e.g. a public-assistance
+  // announcement) shown as a full-width bar above the navbar.
+  let utilityBar;
+  if (toolsSection && !toolsSection.querySelector('.search')) {
+    const toolsLink = toolsSection.querySelector('a');
+    if (toolsLink) {
+      utilityBar = document.createElement('div');
+      utilityBar.className = 'usa-header__utility-bar';
+      const utilityLink = document.createElement('a');
+      utilityLink.href = toolsLink.href;
+      utilityLink.className = 'usa-header__utility-link';
+      utilityLink.textContent = toolsLink.textContent.trim();
+      utilityBar.appendChild(utilityLink);
+    }
+  }
+
   // Add search block if present in tools section
   if (toolsSection) {
     const searchBlock = toolsSection.querySelector('.search');
@@ -265,6 +282,11 @@ async function decorateNav(header, fragment) {
   // Clear the block content (EDS adds a default wrapper)
   header.textContent = '';
 
+  // Prepend the utility/alert bar above the nav (full-width, above navbar)
+  if (utilityBar) {
+    header.appendChild(utilityBar);
+  }
+
   // Assemble final header structure
   if (navContainer) {
     // Basic/megamenu variants: use nav-container wrapper
@@ -283,22 +305,8 @@ async function decorateNav(header, fragment) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  // Automatically add banner above header (USWDS pattern)
-  // The banner should be a sibling to the <header> element, not inside it
-  const headerElement = block.parentElement; // This is the <header> tag
-  const bannerBlock = document.createElement('div');
-  bannerBlock.className = 'banner block';
-  bannerBlock.setAttribute('data-block-name', 'banner');
-
-  // Insert banner before the <header> element in the DOM
-  headerElement.parentElement.insertBefore(bannerBlock, headerElement);
-
-  // Now decorate and load the banner block
-  decorateBlock(bannerBlock);
-  await loadBlock(bannerBlock);
-
   // Load the nav content from fragment
-  const navPath = getMetadata('nav') || '/nav/header';
+  const navPath = getMetadata('nav') || '/content/nav/header';
   const fragment = await loadFragment(navPath);
 
   // Decorate the fragment into USWDS structure

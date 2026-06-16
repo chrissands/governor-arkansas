@@ -1,33 +1,146 @@
+/* ==========================================================================
+   columns block — styled for governor.arkansas.gov bio section
+   ("Meet the 47th Governor"). Values extracted from source computed styles.
+   Decorated DOM: .columns > div > [div (text cell), div.columns-img-col > picture > img]
+   ========================================================================== */
+
+/* Widen the bio wrapper to the same content bounds as the hero/header
+   (max-width 1280, centered, 32px padding) so "Meet the 47th Governor" and
+   the H2 line up with the hero H1 and the logo — matching the source. */
+.columns-wrapper {
+  max-width: 1280px !important;
+  margin: 0 auto !important;
+  padding: 0 32px !important;
+}
+
+/* Section background is white (page default). Generous vertical padding. */
+.columns {
+  background-color: var(--background-color);
+  padding: 2.5rem 0 0;
+}
+
+/* Rows: mobile-first stack (text first, image below). */
 .columns > div {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
 }
 
+/* Mobile order: text first, image below. */
+.columns > div > div {
+  order: 0;
+}
+
+.columns > div > .columns-img-col {
+  order: 1;
+}
+
+/* Eyebrow: first paragraph in the text cell.
+   Green, Nunito Sans, bold, ~19px, with a thin horizontal divider line
+   flanking the text (matches source elementor divider). */
+.columns > div > div:first-child > p:first-child {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--link-color);
+  font-family: var(--body-font-family);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.columns > div > div:first-child > p:first-child::before,
+.columns > div > div:first-child > p:first-child::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 0;
+  border-top: 1px solid var(--link-color);
+}
+
+/* H2 "Sarah Huckabee Sanders" — navy Craw Clarendon, weight 900, ~40px */
+.columns h2 {
+  margin: 0.4em 0 0.3em;
+  color: var(--text-color);
+  font-family: var(--heading-font-family);
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* Body paragraphs — dark text, Nunito Sans, comfortable line-height */
+.columns > div > div:first-child > p {
+  margin: 0 0 0.9rem;
+  color: var(--dark-color);
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* CTA: EDS/USWDS decorated the standalone link as a.usa-button.
+   Restyle as the solid green brand button from the source. */
+.columns .button-container {
+  margin: 1rem 0 0;
+}
+
+.columns .button-container a.usa-button,
+.columns .button-container a.usa-button:any-link,
+.columns .button-container a.usa-button:visited {
+  display: inline-block;
+  padding: 18px 30px;
+  border: 0;
+  border-radius: 8px;
+  background-color: var(--link-color);
+  color: #fff !important; /* beat global a.usa-button { color: inherit !important } */
+  font-family: var(--body-font-family);
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none !important;
+}
+
+.columns .button-container a.usa-button:hover,
+.columns .button-container a.usa-button:focus,
+.columns .button-container a.usa-button:active {
+  background-color: var(--link-hover-color);
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+/* Portrait image — fills its column, slightly rounded top corners */
 .columns img {
   width: 100%;
 }
 
-.columns > div > div {
-  order: 1;
-}
-
-.columns > div > .columns-img-col {
-  order: 0;
-}
-
 .columns > div > .columns-img-col img {
   display: block;
+  border-radius: 8px 8px 0 0;
+  object-fit: cover;
 }
 
+/* Desktop: two columns side-by-side, text wider than image, centered. */
 @media (width >= 900px) {
+  .columns {
+    padding: 5rem 0 0;
+  }
+
   .columns > div {
+    flex-direction: row;
     align-items: center;
-    flex-direction: unset;
-    gap: 24px;
+    gap: 50px;
   }
 
   .columns > div > div {
-    flex: 1;
     order: unset;
+  }
+
+  .columns > div > div:first-child {
+    flex: 1.6;
+  }
+
+  .columns > div > .columns-img-col {
+    flex: 1;
   }
 }

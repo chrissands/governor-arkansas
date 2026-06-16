@@ -1,3 +1,5 @@
+@import url('brand.css');
+
 /*
  * Copyright 2020 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -11,17 +13,17 @@
  */
 
 :root {
-  /* colors */
+  /* colors — Arkansas Governor brand (navy + green) */
   --background-color: white;
   --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  --dark-color: #0e2b45;
+  --text-color: #113b60;
+  --link-color: #146e48;
+  --link-hover-color: #0f5436;
 
-  /* fonts - USWDS Typography with size-adjusted fallbacks */
-  --body-font-family: "Source Sans Pro Web", "Source Sans Pro Fallback", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
-  --heading-font-family: "Merriweather Web", "Merriweather Fallback", Georgia, Cambria, "Times New Roman", Times, serif;
+  /* fonts — Craw Clarendon display (headings), Nunito Sans (body) */
+  --body-font-family: "Nunito Sans", system-ui, "Helvetica Neue", helvetica, arial, sans-serif;
+  --heading-font-family: "Craw Clarendon", georgia, cambria, "Times New Roman", times, serif;
 
   /* body sizes */
   --body-font-size-m: 22px;
@@ -85,13 +87,13 @@
     --body-font-size-s: 16px;
     --body-font-size-xs: 14px;
 
-    /* heading sizes */
-    --heading-font-size-xxl: 45px;
-    --heading-font-size-xl: 36px;
-    --heading-font-size-l: 28px;
-    --heading-font-size-m: 22px;
+    /* heading sizes — matched to governor.arkansas.gov */
+    --heading-font-size-xxl: 56px;
+    --heading-font-size-xl: 40px;
+    --heading-font-size-l: 30px;
+    --heading-font-size-m: 24px;
     --heading-font-size-s: 20px;
-    --heading-font-size-xs: 18px;
+    --heading-font-size-xs: 16px;
   }
 }
 
@@ -161,8 +163,8 @@ h6 {
   margin-top: 0.8em;
   margin-bottom: 0.25em;
   font-family: var(--heading-font-family);
-  font-weight: 600;
-  line-height: 1.25;
+  font-weight: 900;
+  line-height: 1.1;
   scroll-margin: 40px;
 }
 

@@ -1570,6 +1570,309 @@ through all possible variants
   src: url("/fonts/merriweather/Latin-Merriweather-BoldItalic.woff2") format("woff2");
 }
 /* stylelint-enable */
+/* ==========================================================================
+   CUSTOM OVERRIDES — governor.arkansas.gov cards (two treatments)
+   Values extracted from source computed styles. Edit-safe (top of file).
+   ==========================================================================
+
+   TREATMENT 1 — Quick-link photo tiles (default .cards, NOT in .section.dark)
+   DOM: .cards > div (tile/row) > div:first-child (picture) + div:last-child (h4)
+   Source: 4 tiles, 345x640 desktop, gap 20px, radius 8px, bottom-left white
+   serif title with dark gradient scrim; whole tile clickable.
+
+   TREATMENT 2 — News cards (.section.dark .cards)
+   DOM: .cards > div (card/row) > div (single cell: h4 + p[date] + p[excerpt])
+   Source: 2 cards on navy bg, green vertical date tab on left edge, white
+   title, light body text.
+   ========================================================================== */
+
+/* ---------- TREATMENT 1: photo tiles (default cards) ---------- */
+
+/* Tile row aligns to the same boxed container as the logo/nav and hero
+   (max-width 1280, centered). The source caps the tile row at its content
+   width and centers it on wide screens — NOT truly full-bleed. At narrower
+   viewports the 32px padding keeps tiles off the edges. */
+.section:not(.dark) > .cards-wrapper {
+  max-width: 1280px !important;
+  margin: 0 auto !important;
+  padding: 0 32px !important;
+}
+
+main .section .cards {
+  display: block;
+  margin: 0;
+}
+
+/* Tile row: stack on mobile, 4-up flex row on desktop */
+main .section .cards > div {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 420px;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 8px; /* matches source */
+  box-shadow: rgb(0 0 0 / 35%) 2px 2px 10px 2px; /* matches source */
+}
+
+/* Picture/image fills the tile (object-fit keeps alt text on the <img>) */
+main .section .cards > div > div:first-child {
+  margin: 0;
+  padding: 0;
+}
+
+main .section .cards > div > div:first-child picture {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+main .section .cards > div > div:first-child img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  transition: transform 0.4s ease;
+}
+
+/* Dark gradient scrim above the photo, below the title */
+main .section .cards > div::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: linear-gradient(241deg, rgb(9 32 52 / 14%) 0%, rgb(0 27 49 / 72%) 82%);
+  pointer-events: none;
+}
+
+/* Title cell sits above scrim, anchored bottom-left */
+main .section .cards > div > div:last-child {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  padding: 20px;
+}
+
+main .section .cards > div > div:last-child h4 {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-weight: 900;
+  font-size: 28px;
+  line-height: 1.15;
+  color: #fff;
+  text-shadow: 0 0 20px rgb(0 0 0 / 80%);
+}
+
+main .section .cards > div > div:last-child h4 a,
+main .section .cards > div > div:last-child h4 a:any-link,
+main .section .cards > div > div:last-child h4 a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Whole-tile click affordance + hover zoom/darken */
+main .section .cards > div {
+  cursor: pointer;
+}
+
+main .section .cards > div:hover img {
+  transform: scale(1.04);
+}
+
+main .section .cards > div:hover::before {
+  background-image: linear-gradient(241deg, rgb(9 32 52 / 24%) 0%, rgb(0 27 49 / 82%) 82%);
+}
+
+@media (width >= 900px) {
+  main .section .cards {
+    display: flex;
+    flex-direction: row;
+    gap: 20px; /* matches source tile gap */
+    align-items: stretch;
+  }
+
+  main .section .cards > div {
+    flex: 1 1 0;
+    min-height: 640px;
+  }
+}
+
+/* ---------- TREATMENT 2: news cards (.section.dark) ---------- */
+
+/* News section: full-width downtown-Little-Rock-at-night photo background
+   (matches source: downtown-LR-nighttime.webp, cover, centered) with a navy
+   gradient overlay for text legibility. Content sits in a narrower centered
+   column (~900px). */
+main .section.dark {
+  margin: 0;
+  padding: 56px 0;
+  color: #fff;
+  background-image:
+    linear-gradient(180deg, rgba(17, 59, 96, 0.82) 0%, rgba(14, 43, 69, 0.88) 100%),
+    url("/content/images/news-downtown-lr-nighttime.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+/* Narrow, centered content column for the news section (matches source). */
+main .section.dark > .default-content-wrapper,
+main .section.dark > .cards-wrapper {
+  max-width: 900px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 0 32px !important;
+}
+
+main .section.dark > div {
+  color: #fff;
+}
+
+main .section.dark h3,
+main .section.dark p {
+  color: #fff;
+}
+
+/* "Read All News" CTA — centered transparent outline button (matches source). */
+main .section.dark > .default-content-wrapper:last-child {
+  text-align: center;
+}
+
+main .section.dark > .default-content-wrapper:last-child .button-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+main .section.dark .default-content-wrapper a.usa-button,
+main .section.dark .default-content-wrapper a.usa-button:any-link,
+main .section.dark .default-content-wrapper a.usa-button:visited,
+main .section.dark .default-content-wrapper a.usa-button:hover {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 12px 24px;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  font-family: var(--body-font-family);
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+main .section.dark .default-content-wrapper a.usa-button:hover {
+  background: rgb(255 255 255 / 12%);
+}
+
+/* News cards container: 1-up mobile, 2-up desktop. Reset Treatment 1 rules. */
+main .section.dark .cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin: 24px 0;
+}
+
+main .section.dark .cards > div {
+  position: static;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  min-height: 0;
+  overflow: visible;
+  border-radius: 0;
+  box-shadow: none; /* news cards have no shadow (unlike quick-link tiles) */
+  background: transparent;
+  cursor: auto;
+  padding: 0 25px 0 0;
+}
+
+/* Cancel Treatment-1 scrim + image rules for news cards */
+main .section.dark .cards > div::before {
+  content: none;
+}
+
+main .section.dark .cards > div:hover img {
+  transform: none;
+}
+
+/* Single content cell */
+main .section.dark .cards > div > div {
+  position: relative;
+  z-index: auto;
+  flex: 1 1 auto;
+  padding: 0 0 0 24px;
+}
+
+/* Green vertical date tab on the left edge.
+   The date paragraph (first <p>) is rotated and given a green pill. */
+main .section.dark .cards > div > div > p:first-of-type {
+  position: absolute;
+  left: 0;
+  top: 6px;
+  margin: 0;
+  padding: 12px 8px;
+  background: var(--link-color); /* #146e48 */
+  color: #fff;
+  font-family: var(--body-font-family);
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  border-radius: 6px;
+}
+
+/* Title (h4 link) — white serif heading */
+main .section.dark .cards > div > div h4 {
+  margin: 0 0 12px;
+  padding-left: 36px;
+  font-family: var(--heading-font-family);
+  font-weight: 900;
+  font-size: 22px;
+  line-height: 1.2;
+  color: #fff;
+}
+
+main .section.dark .cards > div > div h4 a,
+main .section.dark .cards > div > div h4 a:any-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+main .section.dark .cards > div > div h4 a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Excerpt paragraph — light body text */
+main .section.dark .cards > div > div > p:last-of-type {
+  margin: 0;
+  padding-left: 36px;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  line-height: 1.5;
+  color: #fff;
+}
+
+@media (width >= 900px) {
+  main .section.dark .cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+}
+
+/* ==========================================================================
+   END CUSTOM OVERRIDES
+   ========================================================================== */
+
 /* TODO:
  * Add a way to change the flag breakpoint as a modifier/class?
  */

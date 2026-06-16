@@ -716,8 +716,10 @@ async function decorateFooter(footer, fragment) {
  */
 export default async function decorate(block) {
   // Load the footer content from fragment
-  const footerPath = getMetadata('footer-nav') || '/content/nav/footer';
+  const footerPath = getMetadata('footer-nav') || '/nav/footer';
   const fragment = await loadFragment(footerPath);
+
+  if (!fragment) return;
 
   // Decorate the fragment into USWDS structure
   await decorateFooter(block, fragment);

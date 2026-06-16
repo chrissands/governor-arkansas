@@ -306,8 +306,10 @@ async function decorateNav(header, fragment) {
  */
 export default async function decorate(block) {
   // Load the nav content from fragment
-  const navPath = getMetadata('nav') || '/content/nav/header';
+  const navPath = getMetadata('nav') || '/nav/header';
   const fragment = await loadFragment(navPath);
+
+  if (!fragment) return;
 
   // Decorate the fragment into USWDS structure
   await decorateNav(block, fragment);

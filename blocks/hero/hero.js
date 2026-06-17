@@ -10,7 +10,23 @@
  * @param {Element} block The hero block element
  */
 export default function decorate(block) {
-  // Get the content elements from the block
+  // Extract authored video URL: a standalone paragraph whose only content is a
+  // path/URL to a video file (.mp4, .webm, .mov).  Remove it from the block
+  // before any other extraction so it doesn't get picked up as the quote text.
+  let authoredVideoSrc = null;
+  for (const p of block.querySelectorAll('p')) {
+    const text = p.textContent.trim();
+    if (/\.(mp4|webm|mov)(\?|#|$)/i.test(text) && !text.includes(' ')) {
+      authoredVideoSrc = text;
+      // Walk up to the direct child of block and remove the whole row
+      let row = p;
+      while (row.parentElement && row.parentElement !== block) row = row.parentElement;
+      row.remove();
+      break;
+    }
+  }
+
+  // Get the remaining content elements from the block
   const heading = block.querySelector('h1, h2, h3');
   const paragraph = block.querySelector('p');
   const link = block.querySelector('a');
@@ -21,6 +37,15 @@ export default function decorate(block) {
 
   // Add USWDS class directly to the block
   block.classList.add('usa-hero');
+
+  // Apply authored background image as inline style (overrides CSS default).
+  // The picture element is consumed here — not rendered as a visible img.
+  if (picture) {
+    const img = picture.querySelector('img');
+    if (img?.src) {
+      block.style.backgroundImage = `url('${img.src}')`;
+    }
+  }
 
   // Create grid container
   const gridContainer = document.createElement('div');
@@ -78,17 +103,10 @@ export default function decorate(block) {
   gridContainer.appendChild(callout);
   block.appendChild(gridContainer);
 
-  // Handle background image if present
-  if (picture) {
-    // Position picture as background
-    picture.classList.add('usa-hero__image');
-    block.insertBefore(picture, block.firstChild);
-  }
-
-  // Decorative background video (matches source). The background image above
-  // remains as the fallback shown until the video loads / on reduced-motion /
-  // on mobile (< 900px) where the video is skipped to match the live site.
-  const videoSrc = block.dataset.bgVideo || '/videos/ar-gov-hero.mp4';
+  // Decorative background video. Skipped on mobile (< 900px) to match the live
+  // site and on reduced-motion. Authored video URL takes precedence over the
+  // default; block.dataset.bgVideo (block option) takes precedence over both.
+  const videoSrc = block.dataset.bgVideo || authoredVideoSrc || '/videos/ar-gov-hero.mp4';
   const prefersReducedMotion = window.matchMedia
     && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isMobile = window.matchMedia && window.matchMedia('(max-width: 899px)').matches;

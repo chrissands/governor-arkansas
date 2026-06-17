@@ -9,11 +9,17 @@ main .section .interior-banner-wrapper {
 .interior-banner.block {
   position: relative;
   background-color: #113b60;
-  background-image: url('/content/images/hero-whitaker-point.webp');
+  background-image: url('/content/images/hero-whitaker-point-mobile.jpg');
   background-size: cover;
   background-position: 50% 45%;
   padding: 3.5rem 2rem;
   overflow: hidden;
+}
+
+@media (width >= 900px) {
+  .interior-banner.block {
+    background-image: url('/content/images/hero-whitaker-point.webp');
+  }
 }
 
 /* Dark overlay so text is legible over the photo */

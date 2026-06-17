@@ -24,7 +24,7 @@ main .hero.usa-hero {
   min-height: 520px; /* mobile */
   padding: 0;
   background-color: #113b60;
-  background-image: url("/content/images/hero-whitaker-point.webp");
+  background-image: url("/content/images/hero-whitaker-point-mobile.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 45%;
@@ -191,6 +191,7 @@ main .hero.usa-hero .usa-hero__callout > p {
 @media (width >= 900px) {
   main .hero.usa-hero {
     min-height: clamp(760px, 85vh, 1000px);
+    background-image: url("/content/images/hero-whitaker-point.webp");
     background-position: 50% 50%;
   }
 

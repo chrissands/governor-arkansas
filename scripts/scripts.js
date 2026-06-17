@@ -265,6 +265,7 @@ const INTERIOR_SECTIONS = {
  * @param {Element} main The container element
  */
 function buildInteriorLayout(main) {
+  if (main !== document.querySelector('main')) return;
   if (main.querySelector('.hero')) return;
 
   const { pathname } = window.location;

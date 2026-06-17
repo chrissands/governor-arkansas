@@ -7,7 +7,7 @@
  */
 
 const INDEX_URL = '/news/query-index.json';
-const MAX_ITEMS = 3;
+const MAX_ITEMS = 2;
 
 const DEMO_NEWS = [
   {
@@ -63,7 +63,7 @@ function renderCard(item) {
       <div class="news-card-body">
         <h3 class="news-card-title">${item.title || item.path}</h3>
         ${item.description ? `<p class="news-card-desc">${item.description}</p>` : ''}
-        <span class="news-read-more">read more »</span>
+        <span class="news-read-more">read more &gt;</span>
       </div>
     </a>
   `;

@@ -56,20 +56,14 @@ function formatDate(dateStr) {
 
 function renderCard(item) {
   const date = formatDate(item.date);
-  const imgSrc = item.image || '';
 
   return `
     <a class="news-card" href="${item.path}">
-      ${imgSrc ? `
-        <div class="news-card-image">
-          <img src="${imgSrc}" alt="${item.title || ''}" loading="lazy">
-        </div>` : ''}
+      ${date ? `<div class="news-card-date">${date}</div>` : ''}
       <div class="news-card-body">
-        <div class="news-card-meta">
-          ${date ? `<span class="news-date">${date}</span>` : ''}
-        </div>
         <h3 class="news-card-title">${item.title || item.path}</h3>
         ${item.description ? `<p class="news-card-desc">${item.description}</p>` : ''}
+        <span class="news-read-more">read more »</span>
       </div>
     </a>
   `;

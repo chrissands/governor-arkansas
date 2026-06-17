@@ -280,6 +280,10 @@ main > .section {
   margin: 40px 0;
 }
 
+main > .section:empty {
+  display: none;
+}
+
 /* Default content container - constrained to USWDS grid max-width 
    Exclude full-width blocks (hero, alert, banner) that need edge-to-edge layout */
 main > .section > div:not(.hero):not(.alert):not(.banner) {

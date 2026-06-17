@@ -120,7 +120,7 @@
   justify-content: center;
 }
 
-.news-view-all {
+.news-cta a.news-view-all {
   display: inline-flex;
   align-items: center;
   font-family: var(--body-font-family);
@@ -134,7 +134,7 @@
   transition: background-color 0.15s, border-color 0.15s;
 }
 
-.news-view-all:hover {
+.news-cta a.news-view-all:hover {
   background: rgba(255 255 255 / 10%);
   border-color: #fff;
   color: #fff;

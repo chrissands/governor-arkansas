@@ -23,7 +23,11 @@ main .hero.usa-hero {
   width: 100%;
   min-height: 520px; /* mobile */
   padding: 0;
-  background-color: #113b60; /* fallback until <img> loads */
+  background-color: #113b60;
+  background-image: url("/content/images/hero-whitaker-point.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 45%;
   display: flex;
   flex-direction: column;
   overflow: hidden;

@@ -1,0 +1,29 @@
+/* Full-bleed wrapper — override the global section max-width constraint */
+main .section .interior-banner-wrapper {
+  max-width: 100% !important;
+  padding: 0;
+  margin: 0;
+}
+
+/* Navy banner strip */
+.interior-banner.block {
+  background-color: #113b60;
+  padding: 2.5rem 1.5rem 3rem;
+  border-bottom: 4px solid #146e48; /* green accent line */
+}
+
+@media (width >= 64em) {
+  .interior-banner.block {
+    padding: 3.5rem 2rem 4rem;
+  }
+}
+
+/* Page title */
+.interior-banner.block h1 {
+  color: #fff;
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  line-height: 1.2;
+  margin: 0 auto;
+  max-width: 52rem;
+  padding: 0;
+}

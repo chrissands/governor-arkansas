@@ -238,6 +238,20 @@ initSa11ySidekick();
 
 
 /**
+ * Builds an interior-banner block for pages that have no hero.
+ * Moves the page h1 into a full-width navy banner prepended to main.
+ * @param {Element} main The container element
+ */
+function buildInteriorBanner(main) {
+  if (main.querySelector('.hero')) return;
+  const h1 = main.querySelector('h1');
+  if (!h1) return;
+  const section = document.createElement('div');
+  section.append(buildBlock('interior-banner', [[h1]]));
+  main.prepend(section);
+}
+
+/**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
@@ -282,6 +296,7 @@ function autolinkModals(doc) {
 function buildAutoBlocks(main) {
   try {
     if (!main.querySelector('.hero')) buildHeroBlock(main);
+    buildInteriorBanner(main);
     if (document.body.classList.contains('sidenav-left')) buildSideNavLeft(main);
   } catch (error) {
     // eslint-disable-next-line no-console

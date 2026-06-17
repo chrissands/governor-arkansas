@@ -309,3 +309,39 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+
+/* ============================================================
+   INTERIOR PAGE STYLES — pages without a hero block
+   ============================================================ */
+
+/* Header: solid navy background + nav-container flows in document order
+   (on the homepage, it floats transparent over the hero image) */
+@media (width >= 64em) {
+  body:not(:has(main .hero)) header.usa-header.usa-header--basic {
+    background-color: #113b60;
+  }
+
+  body:not(:has(main .hero)) header.usa-header.usa-header--basic .usa-nav-container {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+  }
+}
+
+/* Tighten section spacing on interior pages — the banner handles top spacing */
+body:not(:has(main .hero)) main > .section {
+  margin: 0;
+}
+
+body:not(:has(main .hero)) main > .section + .section {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
+
+/* Narrow the prose column for comfortable long-form reading */
+body:not(:has(main .hero)) main > .section .default-content-wrapper {
+  max-width: 52rem;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}

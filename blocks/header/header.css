@@ -189,6 +189,10 @@ header.usa-header .usa-nav-container {
 /* Mobile menu button + close icon on the navy bar */
 .usa-menu-btn {
   background-color: #146e48;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
 }
 
 .usa-menu-btn:hover {
@@ -199,13 +203,23 @@ header.usa-header .usa-nav-container {
 @media (max-width: 63.99em) {
   header.usa-header .usa-nav {
     background-color: #113b60;
+    /* Full-width panel instead of USWDS default 15rem right-side drawer */
+    width: 100%;
   }
 
-  /* Top-level mobile accordion buttons + links: white on navy */
+  /* Disable slidein-left animation for full-width panel */
+  header.usa-header .usa-nav.is-visible {
+    animation: none;
+  }
+
+  /* Top-level mobile accordion buttons + links: white on navy, uppercase */
   header.usa-header .usa-nav__primary > .usa-nav__primary-item > a,
   header.usa-header .usa-nav__primary button.usa-accordion__button.usa-nav__link {
     color: #fff;
     background-color: transparent;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
   }
 
   header.usa-header .usa-nav__primary > .usa-nav__primary-item > a:hover,

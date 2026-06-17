@@ -105,7 +105,8 @@ async function decorateNav(header, fragment) {
   const menuBtn = document.createElement('button');
   menuBtn.type = 'button';
   menuBtn.className = 'usa-menu-btn';
-  menuBtn.textContent = 'Menu';
+  menuBtn.setAttribute('aria-label', 'Menu');
+  menuBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>`;
   navbar.appendChild(menuBtn);
 
   // Create nav container

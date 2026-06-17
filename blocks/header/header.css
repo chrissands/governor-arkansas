@@ -22,7 +22,7 @@ header.usa-header .header.block {
 }
 
 .usa-logo__img {
-  max-width: 6rem;
+  max-width: 7.5rem;
   height: auto;
 }
 
@@ -190,8 +190,8 @@ header.usa-header .usa-nav-container {
 @media (max-width: 63.99em) {
   .usa-navbar {
     height: auto;
-    min-height: 4.5rem;
-    padding: 0.5rem 0;
+    min-height: 7.5rem;
+    padding: 1rem 0;
   }
 }
 

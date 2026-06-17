@@ -34,12 +34,12 @@ main .section .article-layout-wrapper {
   padding-top: 0.5rem;
 }
 
-.article-sidebar__back {
+.article-layout__sidebar .article-sidebar__back {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   background-color: #146e48;
-  color: #fff;
+  color: #fff !important;
   font-family: var(--body-font-family);
   font-weight: 700;
   font-size: 0.875rem;
@@ -50,14 +50,14 @@ main .section .article-layout-wrapper {
   transition: background-color 0.15s;
 }
 
-.article-sidebar__back::before {
+.article-layout__sidebar .article-sidebar__back::before {
   content: '←';
   font-size: 1rem;
 }
 
-.article-sidebar__back:hover {
+.article-layout__sidebar .article-sidebar__back:hover {
   background-color: #0f5436;
-  color: #fff;
+  color: #fff !important;
 }
 
 .article-sidebar__nav-title {

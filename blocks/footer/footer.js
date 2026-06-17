@@ -251,10 +251,10 @@ async function decorateBigFooter(footer, sections) {
       // Topic heading
       const heading = topic.querySelector('p, strong');
       if (heading) {
-        const h4 = document.createElement('h4');
-        h4.className = 'usa-footer__primary-link';
-        h4.textContent = heading.textContent;
-        section.appendChild(h4);
+        const h3 = document.createElement('h3');
+        h3.className = 'usa-footer__primary-link';
+        h3.textContent = heading.textContent;
+        section.appendChild(h3);
       }
 
       // Secondary links
@@ -515,10 +515,10 @@ function decorateColumnsFooter(footer, sections) {
 
       const heading = topic.querySelector(':scope > p, :scope > strong');
       if (heading) {
-        const h4 = document.createElement('h4');
-        h4.className = 'usa-footer__primary-link';
-        h4.textContent = heading.textContent;
-        section.appendChild(h4);
+        const h3 = document.createElement('h3');
+        h3.className = 'usa-footer__primary-link';
+        h3.textContent = heading.textContent;
+        section.appendChild(h3);
       }
 
       const linksList = topic.querySelector('ul');

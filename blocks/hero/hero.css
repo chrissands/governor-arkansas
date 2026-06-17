@@ -151,7 +151,7 @@ main .hero.usa-hero h1.usa-hero__heading {
 
 /* Quote box (semi-transparent navy) — right side, left-aligned text */
 main .hero.usa-hero .usa-hero__callout > p {
-  margin: auto 0 0;             /* push to bottom on mobile */
+  margin: clamp(2rem, 10vh, 5rem) 0 0;
   align-self: flex-end;          /* push to right */
   width: 100%;
   max-width: 100%;

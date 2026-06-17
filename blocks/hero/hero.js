@@ -38,12 +38,21 @@ export default function decorate(block) {
   // Add USWDS class directly to the block
   block.classList.add('usa-hero');
 
-  // Apply authored background image as inline style (overrides CSS default).
-  // The picture element is consumed here — not rendered as a visible img.
+  // Keep the background image as a real <img> so the browser's preload scanner
+  // can discover and fetch it early (CSS background-image set by JS is invisible
+  // to the scanner, causing late LCP). fetchpriority="high" + loading="eager"
+  // ensures it's fetched at the highest priority on both mobile and desktop.
   if (picture) {
     const img = picture.querySelector('img');
-    if (img?.src) {
-      block.style.backgroundImage = `url('${img.src}')`;
+    if (img) {
+      img.className = 'usa-hero__bg-image';
+      img.setAttribute('fetchpriority', 'high');
+      img.setAttribute('loading', 'eager');
+      img.setAttribute('decoding', 'async');
+      img.alt = '';
+      img.setAttribute('aria-hidden', 'true');
+      picture.className = 'usa-hero__bg-picture';
+      block.appendChild(picture);
     }
   }
 

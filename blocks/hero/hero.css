@@ -23,14 +23,30 @@ main .hero.usa-hero {
   width: 100%;
   min-height: 520px; /* mobile */
   padding: 0;
-  background-image: url("/content/images/hero-whitaker-point.webp");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 50% 45%;
+  background-color: #113b60; /* fallback until <img> loads */
   display: flex;
   flex-direction: column;
   overflow: hidden;
   border-radius: 0;
+}
+
+/* Background image layer — real <img> so the preload scanner can discover and
+   fetch it immediately, avoiding the late-LCP penalty of JS-set background-image */
+main .hero.usa-hero .usa-hero__bg-picture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+main .hero.usa-hero .usa-hero__bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 45%;
+  display: block;
 }
 
 /* Hero must not clip the bottom wedge; allow the following tiles to overlap up.

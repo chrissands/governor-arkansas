@@ -22,7 +22,7 @@ header.usa-header .header.block {
 }
 
 .usa-logo__img {
-  max-width: 3rem;
+  max-width: 6rem;
   height: auto;
 }
 
@@ -38,7 +38,7 @@ header.usa-header .header.block {
 /* Desktop responsive styles */
 @media (min-width: 64em) {
   .usa-logo__img {
-    max-width: 5.5rem;
+    max-width: 9.375rem;
   }
 
   /* Align dropdown buttons with plain links in the primary nav */
@@ -90,7 +90,7 @@ header.usa-header .usa-nav-container {
 /* White logo sits on the navy bar */
 @media (min-width: 64em) {
   .usa-logo__img {
-    max-width: 4.5rem;
+    max-width: 9.375rem;
   }
 
   /* Desktop: navbar (logo + nav) is transparent and OVERLAYS the hero,
@@ -109,6 +109,12 @@ header.usa-header .usa-nav-container {
     transform: translateX(-50%);
     width: 100%;
     background-color: transparent;
+    align-items: flex-start; /* logo + nav align to top; logo overflows below */
+  }
+
+  /* Push nav links down to match live-site spacing (~26px below utility bar) */
+  header.usa-header.usa-header--basic .usa-nav {
+    padding-top: 1.625rem;
   }
 
   /* The utility bar keeps its own height in flow; the navbar floats,

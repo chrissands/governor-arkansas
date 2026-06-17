@@ -170,7 +170,7 @@ main .hero.usa-hero .usa-hero__callout > p {
 
 @media (width >= 900px) {
   main .hero.usa-hero {
-    min-height: 760px; /* tall desktop hero matching source proportions */
+    min-height: clamp(760px, 85vh, 1000px);
     background-position: 50% 50%;
   }
 
@@ -183,19 +183,19 @@ main .hero.usa-hero .usa-hero__callout > p {
   }
 
   main .hero.usa-hero .usa-hero__callout {
-    padding: 180px 0 50px; /* push H1 down from header, room for cards below */
+    padding: 220px 0 50px;
     gap: 50px;
   }
 
   main .hero.usa-hero h1.usa-hero__heading {
     font-size: 56px;
-    line-height: 1.05;
+    line-height: 1.3;
   }
 
   main .hero.usa-hero .usa-hero__callout > p {
     width: 646px;
     max-width: 50%;
-    margin: 40px 0 auto; /* sit below H1, leave open space toward bottom */
+    margin: 0 0 auto;
     padding: 30px;
     font-size: 19.2px;
     line-height: 24px;

@@ -186,6 +186,15 @@ header.usa-header .usa-nav-container {
   }
 }
 
+/* Mobile navbar: taller bar so the Governor logo isn't clipped */
+@media (max-width: 63.99em) {
+  .usa-navbar {
+    height: auto;
+    min-height: 4.5rem;
+    padding: 0.5rem 0;
+  }
+}
+
 /* Mobile menu button + close icon on the navy bar */
 .usa-menu-btn {
   background-color: #146e48;

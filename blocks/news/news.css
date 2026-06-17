@@ -120,7 +120,8 @@
   justify-content: center;
 }
 
-.news-view-all {
+.news-view-all:any-link,
+.news-view-all:visited {
   display: inline-flex;
   align-items: center;
   font-family: var(--body-font-family);

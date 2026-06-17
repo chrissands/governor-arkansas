@@ -6,7 +6,7 @@
  * Falls back to demo content while the query index is being indexed by AEM.
  */
 
-const INDEX_URL = '/newsroom/press-releases/query-index.json';
+const INDEX_URL = '/news/query-index.json';
 const MAX_ITEMS = 3;
 
 const DEMO_NEWS = [
@@ -55,10 +55,8 @@ function formatDate(dateStr) {
 }
 
 function renderCard(item) {
-  const tag = (item.tags && item.tags[0]) || (item['article:tag']) || '';
-  const dateVal = item.date || item['publication-date'] || item.lastModified;
-  const date = formatDate(dateVal);
-  const imgSrc = item.image || item['og:image'] || '';
+  const date = formatDate(item.date);
+  const imgSrc = item.image || '';
 
   return `
     <a class="news-card" href="${item.path}">
@@ -118,8 +116,8 @@ export default async function decorate(el) {
   const items = data
     .filter((item) => item.title || item.path)
     .sort((a, b) => {
-      const da = new Date(a.date || a['publication-date'] || a.lastModified || 0);
-      const db = new Date(b.date || b['publication-date'] || b.lastModified || 0);
+      const da = new Date(a.date || 0);
+      const db = new Date(b.date || 0);
       return db - da;
     })
     .slice(0, MAX_ITEMS);

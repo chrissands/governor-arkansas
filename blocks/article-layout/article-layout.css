@@ -1,0 +1,137 @@
+/* Full-width wrapper */
+main .section .article-layout-wrapper {
+  max-width: 100% !important;
+  padding: 0;
+  margin: 0;
+}
+
+/* Two-column grid */
+.article-layout.block {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  gap: 2rem;
+}
+
+@media (width >= 64em) {
+  .article-layout.block {
+    grid-template-columns: 240px 1fr;
+    gap: 3rem;
+    padding: 3rem 2rem 5rem;
+  }
+}
+
+/* ---- Sidebar ---- */
+.article-layout__sidebar {
+  padding-top: 0.5rem;
+}
+
+.article-sidebar__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: #146e48;
+  color: #fff;
+  font-family: var(--body-font-family);
+  font-weight: 700;
+  font-size: 0.875rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-bottom: 1.75rem;
+  transition: background-color 0.15s;
+}
+
+.article-sidebar__back::before {
+  content: '←';
+  font-size: 1rem;
+}
+
+.article-sidebar__back:hover {
+  background-color: #0f5436;
+  color: #fff;
+}
+
+.article-sidebar__nav-title {
+  font-family: var(--heading-font-family);
+  font-weight: 900;
+  font-size: 1rem;
+  color: #113b60;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.5rem;
+  padding: 0 0 0.5rem;
+  border-bottom: 2px solid #146e48;
+}
+
+/* USWDS sidenav overrides for sidebar context */
+.article-layout__sidebar .usa-sidenav {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.article-layout__sidebar .usa-sidenav__item {
+  border-top: 1px solid #dfe1e2;
+}
+
+.article-layout__sidebar .usa-sidenav__item a {
+  color: #113b60;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 0.6rem 0;
+  text-decoration: none;
+  display: block;
+}
+
+.article-layout__sidebar .usa-sidenav__item a:hover {
+  color: #146e48;
+}
+
+.article-layout__sidebar .usa-sidenav__item a.usa-current {
+  color: #146e48;
+  font-weight: 800;
+  border-left: 3px solid #146e48;
+  padding-left: 0.75rem;
+}
+
+/* ---- Article content ---- */
+.article-layout__content {
+  min-width: 0; /* prevent grid blowout */
+}
+
+/* Date stamp */
+.article-layout__date {
+  color: #146e48;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.75rem;
+}
+
+/* Article title (h1) */
+.article-layout__content h1 {
+  font-family: var(--heading-font-family);
+  font-weight: 900;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1.15;
+  color: #113b60;
+  margin: 0 0 1.5rem;
+}
+
+/* Body text */
+.article-layout__content p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #1b1b1b;
+  margin: 0 0 1.25rem;
+  max-width: 68ch;
+}
+
+/* "###" end marker */
+.article-layout__content p:last-child {
+  color: #71767a;
+  font-size: 0.875rem;
+}

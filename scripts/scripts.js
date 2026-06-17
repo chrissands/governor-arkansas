@@ -237,18 +237,97 @@ function initSa11ySidekick() {
 initSa11ySidekick();
 
 
+// Section configuration for auto-built interior layouts
+const INTERIOR_SECTIONS = {
+  '/newsroom/': {
+    name: 'Newsroom',
+    back: { url: '/newsroom/press-releases', text: 'Back to All News' },
+    nav: [
+      { text: 'Press Releases', url: '/newsroom/press-releases' },
+      { text: 'Executive Orders', url: '/newsroom/executive-orders' },
+    ],
+  },
+  '/administration/': {
+    name: 'Administration',
+    back: { url: '/administration', text: 'Back to Administration' },
+    nav: [
+      { text: 'The Governor', url: '/administration/governor-sanders' },
+      { text: 'Executive Staff', url: '/administration/executive-staff' },
+      { text: 'Boards & Commissions', url: '/administration/boards-commissions' },
+    ],
+  },
+};
+
 /**
- * Builds an interior-banner block for pages that have no hero.
- * Moves the page h1 into a full-width navy banner prepended to main.
+ * Builds an interior page layout for pages without a hero:
+ *  1. A full-width section banner showing the section name (e.g. "Newsroom")
+ *  2. A two-column article-layout block with sidebar + article content
  * @param {Element} main The container element
  */
-function buildInteriorBanner(main) {
+function buildInteriorLayout(main) {
   if (main.querySelector('.hero')) return;
-  const h1 = main.querySelector('h1');
-  if (!h1) return;
-  const section = document.createElement('div');
-  section.append(buildBlock('interior-banner', [[h1]]));
-  main.prepend(section);
+
+  const { pathname } = window.location;
+  const sectionEntry = Object.entries(INTERIOR_SECTIONS)
+    .find(([key]) => pathname.startsWith(key));
+  const sectionInfo = sectionEntry?.[1];
+
+  // --- 1. Section name banner ---
+  const sectionNameEl = document.createElement('p');
+  sectionNameEl.textContent = sectionInfo?.name
+    ?? toClassName(pathname.split('/').filter(Boolean)[0] ?? 'Page')
+      .replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+  const bannerSection = document.createElement('div');
+  bannerSection.append(buildBlock('interior-banner', [[sectionNameEl]]));
+  main.prepend(bannerSection);
+
+  if (!sectionInfo) return;
+
+  // --- 2. Two-column article layout ---
+  // main.children[0] = bannerSection (just prepended)
+  // main.children[1] = original first content section
+  const contentSection = main.children[1];
+  if (!contentSection || !contentSection.childElementCount) return;
+
+  // Build sidebar: back button + section nav
+  const sidebar = document.createElement('div');
+
+  const backLink = document.createElement('a');
+  backLink.href = sectionInfo.back.url;
+  backLink.textContent = sectionInfo.back.text;
+  backLink.className = 'article-sidebar__back';
+  sidebar.append(backLink);
+
+  if (sectionInfo.nav.length) {
+    const navTitle = document.createElement('p');
+    navTitle.className = 'article-sidebar__nav-title';
+    navTitle.textContent = sectionInfo.name;
+    sidebar.append(navTitle);
+
+    const ul = document.createElement('ul');
+    ul.className = 'usa-sidenav';
+    sectionInfo.nav.forEach(({ text, url }) => {
+      const li = document.createElement('li');
+      li.className = 'usa-sidenav__item';
+      const a = document.createElement('a');
+      a.href = url;
+      a.textContent = text;
+      // Mark current nav item
+      if (pathname.startsWith(url)) a.className = 'usa-current';
+      li.append(a);
+      ul.append(li);
+    });
+    sidebar.append(ul);
+  }
+
+  // Collect all article content nodes
+  const articleContent = document.createElement('div');
+  while (contentSection.firstChild) articleContent.append(contentSection.firstChild);
+
+  // Replace content section with the two-column layout block
+  const layoutSection = document.createElement('div');
+  layoutSection.append(buildBlock('article-layout', [[sidebar, articleContent]]));
+  contentSection.replaceWith(layoutSection);
 }
 
 /**
@@ -296,7 +375,7 @@ function autolinkModals(doc) {
 function buildAutoBlocks(main) {
   try {
     if (!main.querySelector('.hero')) buildHeroBlock(main);
-    buildInteriorBanner(main);
+    buildInteriorLayout(main);
     if (document.body.classList.contains('sidenav-left')) buildSideNavLeft(main);
   } catch (error) {
     // eslint-disable-next-line no-console

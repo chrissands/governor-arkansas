@@ -1599,7 +1599,9 @@ through all possible variants
 }
 
 main .section .cards {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   margin: 0;
 }
 
@@ -1609,7 +1611,7 @@ main .section .cards > div {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  min-height: 420px;
+  min-height: 280px;
   margin: 0;
   overflow: hidden;
   border-radius: 8px; /* matches source */
@@ -1657,7 +1659,7 @@ main .section .cards > div > div:last-child {
   padding: 20px;
 }
 
-main .section .cards > div > div:last-child h4 {
+main .section .cards > div > div:last-child h2 {
   margin: 0;
   font-family: var(--heading-font-family);
   font-weight: 900;
@@ -1667,9 +1669,9 @@ main .section .cards > div > div:last-child h4 {
   text-shadow: 0 0 20px rgb(0 0 0 / 80%);
 }
 
-main .section .cards > div > div:last-child h4 a,
-main .section .cards > div > div:last-child h4 a:any-link,
-main .section .cards > div > div:last-child h4 a:hover {
+main .section .cards > div > div:last-child h2 a,
+main .section .cards > div > div:last-child h2 a:any-link,
+main .section .cards > div > div:last-child h2 a:hover {
   color: #fff;
   text-decoration: none;
 }
@@ -1830,8 +1832,8 @@ main .section.dark .cards > div > div > p:first-of-type {
   border-radius: 6px;
 }
 
-/* Title (h4 link) — white serif heading */
-main .section.dark .cards > div > div h4 {
+/* Title (h2 link) — white serif heading */
+main .section.dark .cards > div > div h2 {
   margin: 0 0 12px;
   padding-left: 36px;
   font-family: var(--heading-font-family);
@@ -1841,13 +1843,13 @@ main .section.dark .cards > div > div h4 {
   color: #fff;
 }
 
-main .section.dark .cards > div > div h4 a,
-main .section.dark .cards > div > div h4 a:any-link {
+main .section.dark .cards > div > div h2 a,
+main .section.dark .cards > div > div h2 a:any-link {
   color: #fff;
   text-decoration: none;
 }
 
-main .section.dark .cards > div > div h4 a:hover {
+main .section.dark .cards > div > div h2 a:hover {
   color: #fff;
   text-decoration: underline;
 }

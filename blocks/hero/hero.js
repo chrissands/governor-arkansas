@@ -86,11 +86,13 @@ export default function decorate(block) {
   }
 
   // Decorative background video (matches source). The background image above
-  // remains as the fallback shown until the video loads / on reduced-motion.
+  // remains as the fallback shown until the video loads / on reduced-motion /
+  // on mobile (< 900px) where the video is skipped to match the live site.
   const videoSrc = block.dataset.bgVideo || '/videos/ar-gov-hero.mp4';
   const prefersReducedMotion = window.matchMedia
     && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (videoSrc && !prefersReducedMotion) {
+  const isMobile = window.matchMedia && window.matchMedia('(max-width: 899px)').matches;
+  if (videoSrc && !prefersReducedMotion && !isMobile) {
     const video = document.createElement('video');
     video.className = 'usa-hero__video';
     video.autoplay = true;
